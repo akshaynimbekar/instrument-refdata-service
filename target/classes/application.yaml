@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: instrument-refdata-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/refdata
+    username: postgres
+    password: Akshay@1999
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+
+server:
+  port: 8080
