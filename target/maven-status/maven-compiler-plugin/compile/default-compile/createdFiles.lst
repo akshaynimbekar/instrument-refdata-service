@@ -1,1 +1,4 @@
+com\shak\refdata\entity\Instrument.class
 com\shak\refdata\RefdataApplication.class
+com\shak\refdata\entity\Instrument$InstrumentBuilder.class
+com\shak\refdata\repository\InstrumentRepository.class
