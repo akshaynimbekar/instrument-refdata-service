@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="instrument")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+//@Getter
+//@Setter
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Builder
 public class Instrument {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Instrument {
 	private String exchange;
 	
 	@Column(length=3)
-	private String curency;
+	private String currency;
 	
 	@Column(name="created_at", updatable=false)
 	private LocalDateTime createdAt;
@@ -47,4 +47,98 @@ public class Instrument {
 	public void preUpdate() {
 		updatedAt = LocalDateTime.now();
 	}
+	
+	//Gettters and Setters
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getIsin() {
+		return isin;
+	}
+
+	public void setIsin(String isin) {
+		this.isin = isin;
+	}
+
+	public String getCusip() {
+		return cusip;
+	}
+
+	public void setCusip(String cusip) {
+		this.cusip = cusip;
+	}
+
+	public String getTicker() {
+		return ticker;
+	}
+
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
+
+	public String getExchange() {
+		return exchange;
+	}
+
+	public void setExchange(String exchange) {
+		this.exchange = exchange;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	//Constructors
+	public Instrument(Long id, String isin, String cusip, String ticker, String exchange, String currency,
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
+		super();
+		this.id = id;
+		this.isin = isin;
+		this.cusip = cusip;
+		this.ticker = ticker;
+		this.exchange = exchange;
+		this.currency = currency;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
+	public Instrument() {
+		super();
+	}
+
+	//toString method
+	
+	@Override
+	public String toString() {
+		return "Instrument [id=" + id + ", isin=" + isin + ", cusip=" + cusip + ", ticker=" + ticker + ", exchange="
+				+ exchange + ", currency=" + currency + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+	
+	
+	
 }
