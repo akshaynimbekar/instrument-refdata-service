@@ -1,6 +1,7 @@
-com\shak\refdata\controller\InstrumentController_beforeDtoException.class
 com\shak\refdata\exception\ResourceNotFoundException.class
 com\shak\refdata\exception\GlobalExceptionHandler.class
+com\shak\refdata\specification\InstrumentSpecification.class
+com\shak\refdata\dto\BulkUploadResult.class
 com\shak\refdata\repository\InstrumentRepository.class
 com\shak\refdata\dto\InstrumentResponseDto.class
 com\shak\refdata\entity\Instrument.class

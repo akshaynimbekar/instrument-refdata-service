@@ -1,5 +1,6 @@
 package com.shak.refdata.controller;
 
+import com.shak.refdata.dto.BulkUploadResult;
 import com.shak.refdata.dto.InstrumentRequestDto;
 import com.shak.refdata.dto.InstrumentResponseDto;
 import com.shak.refdata.entity.Instrument;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -87,4 +89,10 @@ public class InstrumentController {
         return ResponseEntity.ok(result);
     }
     
+    //bulk upload Api
+    @PostMapping("/upload")
+    public ResponseEntity<BulkUploadResult> uploadInstruments(@RequestParam("file") MultipartFile file) {
+        BulkUploadResult result = instrumentService.bulkUpload(file);
+        return ResponseEntity.ok(result);
+    }
 }
