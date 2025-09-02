@@ -1,8 +1,10 @@
 package com.shak.refdata.controller;
 
+import com.shak.refdata.dto.BulkUploadJobResponse;
 import com.shak.refdata.dto.BulkUploadResult;
 import com.shak.refdata.dto.InstrumentRequestDto;
 import com.shak.refdata.dto.InstrumentResponseDto;
+import com.shak.refdata.entity.BulkUploadJob;
 import com.shak.refdata.entity.Instrument;
 import com.shak.refdata.exception.ResourceNotFoundException;
 import com.shak.refdata.mapper.InstrumentMapper;
@@ -89,10 +91,38 @@ public class InstrumentController {
         return ResponseEntity.ok(result);
     }
     
-    //bulk upload Api
+    //Synchronous bulk upload Api 
     @PostMapping("/upload")
     public ResponseEntity<BulkUploadResult> uploadInstruments(@RequestParam("file") MultipartFile file) {
         BulkUploadResult result = instrumentService.bulkUpload(file);
         return ResponseEntity.ok(result);
     }
+    
+    //Asynchronous Bulk Upload Api
+    
+    @PostMapping("/upload/async")
+    public ResponseEntity<BulkUploadJobResponse> uploadInstrumentsAsync(@RequestParam("file") MultipartFile file) {
+        BulkUploadJob job = instrumentService.createJob(file.getOriginalFilename());
+        instrumentService.processJob(job.getId(), file); // runs in background
+        return ResponseEntity.ok(
+                new BulkUploadJobResponse(
+                    job.getId(),
+                    job.getFilename(),
+                    job.getStatus(),
+                    job.getSuccessCount(),
+                    job.getFailureCount(),
+                    job.getErrors(),
+                    job.getCreatedAt(),
+                    job.getUpdatedAt()
+                )
+        );
+    }
+
+    @GetMapping("/upload/status/{jobId}")
+    public ResponseEntity<BulkUploadJobResponse> getJobStatus(@PathVariable Long jobId) {
+        return ResponseEntity.ok(instrumentService.getJobStatus(jobId));
+    }
+
+    
+    
 }
