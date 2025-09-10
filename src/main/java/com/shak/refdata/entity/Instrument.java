@@ -1,6 +1,5 @@
 package com.shak.refdata.entity;
 import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDateTime;
 
 
@@ -11,7 +10,9 @@ import java.time.LocalDateTime;
 //@NoArgsConstructor
 //@AllArgsConstructor
 //@Builder
-public class Instrument {
+@org.hibernate.envers.Audited  // Hibernate Envers
+
+public class Instrument extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -31,22 +32,24 @@ public class Instrument {
 	@Column(length=3)
 	private String currency;
 	
-	@Column(name="created_at", updatable=false)
-	private LocalDateTime createdAt;
+//	@Column(name="created_at", updatable=false)
+//	private LocalDateTime createdAt;
+//	
+//	@Column(name="updated_at")
+//	private LocalDateTime updatedAt;
+//	
+//	@PrePersist
+//	public void prePersist() {
+//		createdAt = LocalDateTime.now();
+//		updatedAt = LocalDateTime.now();
+//	}
+//	
+//	@PreUpdate
+//	public void preUpdate() {
+//		updatedAt = LocalDateTime.now();
+//	}
+// Commenting createdat and updatedat because we have created BaseEntity class as part of Auditing which handles these 
 	
-	@Column(name="updated_at")
-	private LocalDateTime updatedAt;
-	
-	@PrePersist
-	public void prePersist() {
-		createdAt = LocalDateTime.now();
-		updatedAt = LocalDateTime.now();
-	}
-	
-	@PreUpdate
-	public void preUpdate() {
-		updatedAt = LocalDateTime.now();
-	}
 	
 	//Gettters and Setters
 	public Long getId() {
@@ -97,21 +100,21 @@ public class Instrument {
 		this.currency = currency;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+//	public LocalDateTime getCreatedAt() {
+//		return createdAt;
+//	}
+//
+//	public void setCreatedAt(LocalDateTime createdAt) {
+//		this.createdAt = createdAt;
+//	}
+//
+//	public LocalDateTime getUpdatedAt() {
+//		return updatedAt;
+//	}
+//
+//	public void setUpdatedAt(LocalDateTime updatedAt) {
+//		this.updatedAt = updatedAt;
+//	}
 	
 	//Constructors
 	public Instrument(Long id, String isin, String cusip, String ticker, String exchange, String currency,
@@ -123,8 +126,8 @@ public class Instrument {
 		this.ticker = ticker;
 		this.exchange = exchange;
 		this.currency = currency;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+//		this.createdAt = createdAt;
+//		this.updatedAt = updatedAt;
 	}
 
 	public Instrument() {
@@ -136,7 +139,7 @@ public class Instrument {
 	@Override
 	public String toString() {
 		return "Instrument [id=" + id + ", isin=" + isin + ", cusip=" + cusip + ", ticker=" + ticker + ", exchange="
-				+ exchange + ", currency=" + currency + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+				+ exchange + ", currency=" + currency + "]";
 	}
 	
 	

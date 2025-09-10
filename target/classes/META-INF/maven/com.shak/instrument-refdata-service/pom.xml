@@ -100,7 +100,11 @@
 			<artifactId>commons-csv</artifactId>
 			<version>1.10.0</version>
 		</dependency>
-
+		<!--dependency for envers for Auditing-->
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-envers</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

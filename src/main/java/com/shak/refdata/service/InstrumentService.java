@@ -22,9 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shak.refdata.dto.BulkUploadJobResponse;
 import com.shak.refdata.dto.BulkUploadResult;
+import com.shak.refdata.dto.InstrumentRequestDto;
+import com.shak.refdata.dto.InstrumentResponseDto;
 import com.shak.refdata.entity.BulkUploadJob;
 import com.shak.refdata.entity.Instrument;
 import com.shak.refdata.entity.JobStatus;
+import com.shak.refdata.exception.ResourceNotFoundException;
+import com.shak.refdata.mapper.InstrumentMapper;
 import com.shak.refdata.repository.BulkUploadJobRepository;
 import com.shak.refdata.repository.InstrumentRepository;
 import com.shak.refdata.specification.InstrumentSpecification;
@@ -60,6 +64,22 @@ public class InstrumentService {
 	public void deleteInstrument(Long id){
 		instrumentRepository.deleteById(id);
 	}
+	
+	//updating whole instrument Put mapping
+	public InstrumentResponseDto updateInstrument(Long id, InstrumentRequestDto dto) {
+	    Instrument instrument = instrumentRepository.findById(id)
+	            .orElseThrow(() -> new ResourceNotFoundException("Instrument not found with id " + id));
+
+	    instrument.setIsin(dto.getIsin());
+	    instrument.setCusip(dto.getCusip());
+	    instrument.setTicker(dto.getTicker());
+	    instrument.setExchange(dto.getExchange());
+	    instrument.setCurrency(dto.getCurrency());
+
+	    Instrument updated = instrumentRepository.save(instrument);
+	    return InstrumentMapper.toDto(updated);
+	}
+
 	
 	//search
 	public Page<Instrument> searchInstruments(String isin, String ticker, String exchange, String currency, Pageable pageable) {

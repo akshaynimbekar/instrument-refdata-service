@@ -75,6 +75,15 @@ public class InstrumentController {
         return ResponseEntity.noContent().build();
     }
     
+    //Updating whole instrument 
+    @PutMapping("/{id}")
+    public ResponseEntity<InstrumentResponseDto> updateInstrument(
+            @PathVariable Long id,
+            @RequestBody InstrumentRequestDto dto) {
+        return ResponseEntity.ok(instrumentService.updateInstrument(id, dto));
+    }
+ 
+    
     //search
     @GetMapping("/search")
     public ResponseEntity<Page<InstrumentResponseDto>> searchInstruments(
